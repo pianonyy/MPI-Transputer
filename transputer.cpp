@@ -355,8 +355,7 @@ void shiftMsg(int rank, int size, int arraySize) {
 
        }
        if(rank == 7 || rank == 11){
-         int recv_size = 1;
-         recv_size += (rank==11) * 1;
+         int recv_size = (rank == 7) ? (arraySize / 8) : (arraySize / 4);
 
          // int recv_size = arraySize / (8 / ( pow(2,rank-7) ) );
          int *recv_left = (int*)malloc(sizeof(int) * recv_size);
@@ -467,7 +466,7 @@ int main(int argc, char** argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
     //Самый простой способ задания уникального сида для каждого процесса
-    // srand(time(NULL) + rank);
+    srand(time(NULL) + rank);
 
     if(rank == 0) {
 
